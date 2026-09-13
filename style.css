@@ -976,3 +976,12 @@ section { padding: 50px 0; }
         font-size: 1rem;
     }
 }
+@media (max-width: 768px) {
+    body {
+        background-color: #F7F6F3 !important;
+        color: #0E0E0E !important;
+    }
+    p, h1, h2, h3, h4, span {
+        color: #0E0E0E !important;
+    }
+}
