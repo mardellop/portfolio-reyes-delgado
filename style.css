@@ -270,60 +270,76 @@ font-weight: 500;
 }
 
 /\* STREAMING_CHUNK:Styling about and contact sections \*/
+.about { background: var(--c-bg); }
+
 .about-inner {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 4rem;
-align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5vw;
+    align-items: start;
 }
 
-.section-label {
-font-size: 0.75rem;
-font-weight: 600;
-text-transform: uppercase;
-color: var(--c-blue);
-letter-spacing: 0.05em;
-margin-bottom: 0.5rem;
-}
-
-.section-title {
-font-family: var(--f-display);
-font-size: 2.5rem;
-font-weight: 700;
-letter-spacing: -0.02em;
-margin-bottom: 1.5rem;
+.about-text p {
+    font-size: 1.05rem;
+    color: var(--c-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    max-width: 520px;
 }
 
 .skills-box {
-background: var(--c-surface);
-padding: 2rem;
-border-radius: 20px;
-border: 1px solid var(--c-border);
+    background: var(--c-ink);
+    border-radius: var(--r-lg);
+    padding: 48px;
+    color: var(--c-white);
 }
 
 .skills-box-title {
-font-weight: 600;
-margin-bottom: 1.25rem;
-font-size: 1.1rem;
+    font-family: var(--f-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    margin-bottom: 2rem;
 }
 
 .skills-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
 }
 
 .skill-item {
-background: var(--c-white);
-padding: 0.875rem 1rem;
-border-radius: 12px;
-font-size: 0.9rem;
-font-weight: 500;
-display: flex;
-align-items: center;
-gap: 0.75rem;
-border: 1px solid var(--c-border);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--r-sm);
+    padding: 14px 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: rgba(255,255,255,0.8);
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
+    cursor: default;
 }
+
+.skill-item i {
+    font-size: 1rem;
+    color: #fff;
+    transition: color 0.3s;
+}
+
+.skill-item:hover {
+    background: var(--c-blue);
+    border-color: var(--c-blue);
+    color: #fff;
+}
+
+.skill-item:hover i { color: #fff; }
+
+/* 
 
 .ticker {
     padding: 0;
