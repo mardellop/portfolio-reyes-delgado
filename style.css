@@ -25,6 +25,21 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container, header, main, footer {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+body {
     font-family: var(--f-body);
     background: var(--c-bg);
     color: var(--c-ink);
