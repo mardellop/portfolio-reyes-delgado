@@ -1,37 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Preloader — eased counter
+    // 1. Preloader robusto para móviles
     const preloader = document.getElementById('preloader');
     const counterEl = document.getElementById('preloader-counter');
 
-    function easeOutExpo(x) {
-        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-    }
+    if (preloader && counterEl) {
+        let value = 0;
+        const interval = setInterval(() => {
+            value += 5;
+            if (value > 100) value = 100;
+            
+            counterEl.textContent = value + '%';
 
-    const startTime = performance.now();
-    const duration  = 1800;
-
-    function updateCounter(now) {
-        const elapsed  = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const value    = Math.floor(easeOutExpo(progress) * 100);
-
-        if (counterEl) counterEl.textContent = value + '%';
-
-        if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-        } else {
-            setTimeout(() => {
-                preloader.classList.add('loaded');
-                document.body.classList.remove('loading');
+            if (value === 100) {
+                clearInterval(interval);
                 setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    document.body.classList.remove('loading');
                     document.querySelectorAll('.hero .reveal-up, .hero .reveal-text')
                         .forEach(el => el.classList.add('active'));
-                }, 200);
-            }, 300);
-        }
+                }, 100);
+            }
+        }, 40); // Incrementa el porcentaje fluidamente cada 40 milisegundos
     }
-
-    requestAnimationFrame(updateCounter);
 
 
     // 2. Intersection Observer for Scroll Animations
