@@ -11,6 +11,13 @@
 \--f-body: 'Inter', sans-serif;
 }
 
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --r-sm: 8px;
+    --r-md: 16px;
+    --r-lg: 28px;
+}
+
 * {
   margin: 0;
   padding: 0;
