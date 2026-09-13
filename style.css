@@ -35,8 +35,6 @@ body {
     overflow-x: hidden;
 }
 
-body.loading { overflow: hidden; }
-
 a { text-decoration: none; color: inherit; }
 
 img { display: block; width: 100%; }
