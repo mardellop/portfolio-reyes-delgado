@@ -1,40 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Preloader — eased counter
+    // 1. Preloader con seguridad por si el elemento no existe
     const preloader = document.getElementById('preloader');
     const counterEl = document.getElementById('preloader-counter');
 
-    function easeOutExpo(x) {
-        return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
-    }
+    if (preloader && counterEl) {
+        function easeOutExpo(x) {
+            return x === 1 ? 1 : 1 - Math.pow(2, -10 * x);
+        }
 
-    const startTime = performance.now();
-    const duration  = 1800;
+        const startTime = performance.now();
+        const duration = 1200; // Reducido ligeramente para mayor agilidad en móviles
 
-    function updateCounter(now) {
-        const elapsed  = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const value    = Math.floor(easeOutExpo(progress) * 100);
+        function updateCounter(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const value = Math.floor(easeOutExpo(progress) * 100);
 
-        if (counterEl) counterEl.textContent = value + '%';
+            counterEl.textContent = value + '%';
 
-        if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-        } else {
-            setTimeout(() => {
-                preloader.classList.add('loaded');
-                document.body.classList.remove('loading');
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            } else {
                 setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    document.body.classList.remove('loading');
                     document.querySelectorAll('.hero .reveal-up, .hero .reveal-text')
                         .forEach(el => el.classList.add('active'));
                 }, 200);
-            }, 300);
+            }
         }
+
+        requestAnimationFrame(updateCounter);
+    } else {
+        // Si no hay preloader, desbloquea el body por seguridad
+        document.body.classList.remove('loading');
+        document.querySelectorAll('.hero .reveal-up, .hero .reveal-text')
+            .forEach(el => el.classList.add('active'));
     }
 
-    requestAnimationFrame(updateCounter);
+    // 2. Control del Menú Hamburguesa en Móviles (¡Faltaba esto!)
+    const navToggle = document.querySelector('.nav-toggle');
+    const navList = document.querySelector('.nav-list');
 
+    if (navToggle && navList) {
+        navToggle.addEventListener('click', () => {
+            navList.classList.toggle('active');
+        });
 
-    // 2. Intersection Observer for Scroll Animations
+        // Cierra el menú al hacer clic en cualquier enlace
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+            });
+        });
+    }
+
+    // 3. Intersection Observer para Scroll Animations
     const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -45,30 +66,31 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Only animate once
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Select all elements to animate (excluding hero elements, they animate on load)
     const revealElements = document.querySelectorAll('section:not(.hero) .reveal-up, section:not(.hero) .reveal-text');
     revealElements.forEach(el => {
         observer.observe(el);
     });
 
-    // 3. Header styling on scroll
+    // 4. Header styling on scroll
     const header = document.querySelector('.header');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+    if (header) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
 
-    // 4. Duplicate ticker content for seamless loop
+    // 5. Duplicate ticker content for seamless loop
     const tickerMove = document.querySelector('.ticker-move');
-    if(tickerMove) {
+    if (tickerMove) {
         const content = tickerMove.innerHTML;
         tickerMove.innerHTML = content + content;
     }
