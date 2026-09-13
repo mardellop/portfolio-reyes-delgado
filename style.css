@@ -45,6 +45,22 @@ max-width: 1200px;
 margin: 0 auto;
 padding: 0 1.5rem;
 }
+.container {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 48px;
+}
+
+.mt-4 { margin-top: 2rem; }
+
+/* 
+h1, h2, h3, h4 {
+    font-family: var(--f-display);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+}
 
 /\* STREAMING_CHUNK:Styling header and navigation \*/
 .header {
