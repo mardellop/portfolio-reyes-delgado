@@ -112,7 +112,6 @@ h1, h2, h3, h4 {
     background: #fff;
 }
 
-
 .nav-container {
     display: flex;
     justify-content: space-between;
@@ -219,25 +218,6 @@ h1, h2, h3, h4 {
 }
 
 .btn-primary:hover::after { transform: translate(2px, -2px); }
-
-/* ============================================================
-   ANIMATIONS
-   ============================================================ */
-.reveal-up {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
-}
-
-.reveal-text { opacity: 0; transition: opacity 0.9s ease; }
-
-.reveal-up.active, .reveal-text.active { opacity: 1; transform: translateY(0); }
-
-.delay-1 { transition-delay: 0.1s; }
-.delay-2 { transition-delay: 0.2s; }
-.delay-3 { transition-delay: 0.35s; }
-
-.line-wrap { display: block; overflow: hidden; }
 
 /* ============================================================
    HERO
