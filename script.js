@@ -73,18 +73,3 @@ document.addEventListener('DOMContentLoaded', () => {
         tickerMove.innerHTML = content + content;
     }
 });
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    const counter = document.getElementById('preloader-counter');
-    
-    if (counter) {
-        counter.textContent = '100%';
-    }
-    
-    if (preloader) {
-        setTimeout(() => {
-            preloader.classList.add('loaded');
-            document.body.classList.remove('loading');
-        }, 500);
-    }
-});
