@@ -31,8 +31,11 @@ body {
     background: var(--c-bg);
     color: var(--c-ink);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+   font-family: var(--f-body);
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
 }
 
 a { text-decoration: none; color: inherit; }
