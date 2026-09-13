@@ -48,67 +48,128 @@ padding: 0 1.5rem;
 
 /\* STREAMING_CHUNK:Styling header and navigation \*/
 .header {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-background: rgba(247, 246, 243, 0.9);
-backdrop-filter: blur(10px);
-z-index: 1000;
-border-bottom: 1px solid var(--c-border);
-padding: 1rem 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 28px 0;
+    z-index: 1000;
+    transition: padding 0.4s var(--ease), background 0.4s var(--ease);
 }
 
+.header.scrolled {
+    padding: 18px 0;
+    background: rgba(14, 14, 14, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    color: #fff;
+}
+
+.header.scrolled .nav-link {
+    color: #fff;
+}
+
+.header.scrolled .nav-link:hover {
+    color: #fff;
+}
+
+.header.scrolled .nav-link::after {
+    background: #fff;
+}
+
+.header.scrolled .logo {
+    color: #fff;
+}
+
+.header.scrolled .btn-primary {
+    background: #fff;
+    color: var(--c-ink);
+}
+
+.header.scrolled .btn-primary:hover {
+    background: var(--c-blue);
+    color: #fff;
+}
+
+.header.scrolled .nav-toggle .line {
+    background: #fff;
+}
+
+
 .nav-container {
-display: flex;
-justify-content: space-between;
-align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
-font-family: var(--f-display);
-font-weight: 800;
-font-size: 1.25rem;
-color: var(--c-ink);
-text-decoration: none;
-letter-spacing: -0.02em;
+    font-family: var(--f-display);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
 }
 
 .nav-list {
-display: flex;
-list-style: none;
-gap: 2rem;
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    list-style: none;
 }
 
 .nav-link {
-text-decoration: none;
-color: var(--c-ink);
-font-weight: 500;
-font-size: 0.95rem;
-transition: color 0.2s ease;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #000;
+    position: relative;
+    transition: color 0.3s;
 }
 
-.nav-link:hover {
-color: var(--c-blue);
+.nav-link:hover { color: var(--c-ink); }
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--c-ink);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease);
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 .nav-toggle {
-display: none;
-background: none;
-border: none;
-cursor: pointer;
-flex-direction: column;
-gap: 6px;
-padding: 5px;
+    display: none;
+    background: transparent;
+    border: none;
+    width: 28px;
+    height: 18px;
+    position: relative;
+    cursor: pointer;
+    z-index: 1001;
 }
 
 .nav-toggle .line {
-width: 24px;
-height: 2px;
-background: var(--c-ink);
-transition: all 0.3s ease;
+    position: absolute;
+    width: 100%;
+    height: 1.5px;
+    background: var(--c-ink);
+    transition: all 0.3s ease;
 }
 
+.nav-toggle .line1 { top: 0; }
+.nav-toggle .line2 { bottom: 0; width: 60%; right: 0; }
+.nav-toggle:hover .line2 { width: 100%; }
+
+/* 
 /\* STREAMING_CHUNK:Styling hero and sections \*/
 section {
 padding: 6rem 0 4rem 0;
@@ -159,30 +220,38 @@ gap: 1rem;
 flex-wrap: wrap;
 }
 
-.btn-primary, .btn-secondary {
-display: inline-flex;
-align-items: center;
-padding: 0.875rem 1.75rem;
-border-radius: 50px;
-font-weight: 600;
-text-decoration: none;
-transition: transform 0.2s ease, background 0.2s ease;
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    background: var(--c-ink);
+    color: var(--c-bg);
+    font-family: var(--f-display);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 100px;
+    transition: background 0.3s, transform 0.3s, gap 0.3s;
+    white-space: nowrap;
 }
 
-.btn-primary {
-background: var(--c-ink);
-color: var(--c-white);
+.btn-primary::after {
+    content: '↗';
+    font-size: 1rem;
+    transition: transform 0.3s var(--ease);
 }
 
 .btn-primary:hover {
-background: var(--c-blue);
+    background: #D9D9D9;
+    color: #000;
+    transform: translateY(-2px);
 }
 
-.btn-secondary {
-background: var(--c-surface);
-color: var(--c-ink);
-border: 1px solid var(--c-border);
-}
+.btn-primary:hover::after { transform: translate(2px, -2px); }
+
+/*
 
 .hero-visual .image-wrapper {
 width: 100%;
@@ -197,6 +266,42 @@ height: auto;
 display: block;
 object-fit: cover;
 }
+
+section { padding: 50px 0; }
+
+.section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--c-muted);
+    margin-bottom: 1.5rem;
+}
+
+.section-label::before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 1px;
+    background: var(--c-blue);
+}
+
+.section-title {
+    font-size: clamp(2.2rem, 3.5vw, 4rem);
+    margin-bottom: 1.5rem;
+}
+
+.section-desc {
+    font-size: 1.1rem;
+    color: var(--c-muted);
+    max-width: 520px;
+    line-height: 1.7;
+}
+
+/* 
 
 /\* STREAMING_CHUNK:Styling work and cards \*/
 .work { background: var(--c-bg); }
