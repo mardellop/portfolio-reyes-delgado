@@ -375,34 +375,6 @@ h1, h2, h3, h4 {
 
 .image-wrapper:hover img { transform: scale(1); }
 
-/* Stats row below hero title */
-.hero-stats {
-    display: flex;
-    gap: 3rem;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--c-border);
-}
-
-.stat-item { }
-
-.stat-num {
-    font-family: var(--f-display);
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--c-ink);
-}
-
-.stat-label {
-    font-size: 0.78rem;
-    color: var(--c-muted);
-    margin-top: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-
 /* ============================================================
    SECTIONS — GLOBAL
    ============================================================ */
@@ -832,7 +804,6 @@ section { padding: 50px 0; }
     .work-card-featured .wc-body { padding: 40px; }
     .about-inner { grid-template-columns: 1fr; }
     .contact-wrapper { grid-template-columns: 1fr; padding: 56px 40px; }
-    .expertise-item { grid-template-columns: 48px 1fr auto; gap: 2rem; }
 }
 
 @media (max-width: 768px) {
@@ -847,11 +818,7 @@ section { padding: 50px 0; }
     .nav-toggle { display: block; }
 
     .work-cards-row { grid-template-columns: 1fr; }
-    .testimonials-grid { grid-template-columns: 1fr; }
     .work-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
-
-    .expertise-item { grid-template-columns: 1fr; gap: 0.75rem; }
-    .expertise-arrow { display: none; }
 
     .contact-wrapper { padding: 40px 28px; }
     .hero-stats { gap: 2rem; flex-wrap: wrap; }
