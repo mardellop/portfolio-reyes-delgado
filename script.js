@@ -73,20 +73,3 @@ document.addEventListener('DOMContentLoaded', () => {
         tickerMove.innerHTML = content + content;
     }
 });
-document.addEventListener('DOMContentLoaded', () => {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navList = document.querySelector('.nav-list');
-
-    if (navToggle && navList) {
-        navToggle.addEventListener('click', () => {
-            navList.classList.toggle('active');
-        });
-
-        // Opcional: cierra el menú automáticamente al hacer clic en una opción
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                navList.classList.remove('active');
-            });
-        });
-    }
-});
