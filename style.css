@@ -803,7 +803,7 @@ h1, h2, h3, h4 {
     .work-card-featured { grid-template-columns: 1fr; min-height: auto; }
     .work-card-featured .wc-body { padding: 40px; }
     .about-inner { grid-template-columns: 1fr; }
-    .contact-wrapper { grid-template-columns: 1fr; padding: 56px 40px; }
+    .contact-wrapper { grid-template-columns: 1fr; padding: 15px 10px; }
     .expertise-item { grid-template-columns: 48px 1fr auto; gap: 2rem; }
 }
 
