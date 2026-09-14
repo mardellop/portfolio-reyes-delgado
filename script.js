@@ -74,7 +74,9 @@ const carruselesData = {
     pets: [
         { url: "post-1-petris-pets.jpg" },
         { url: "post-2-petris-pets.jpg" },
+        { url: "reels-petris-pets.mp4" },
         { url: "post-3-petris-pets.jpg" },
+        { url: "video-galguera.mp4" },
         { url: "post-4-petris-pets.jpg" }
     ],
     diansa: [
