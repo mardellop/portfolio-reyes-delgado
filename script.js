@@ -45,31 +45,228 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // Only animate once
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    // Select all elements to animate (excluding hero elements, they animate on load)
     const revealElements = document.querySelectorAll('section:not(.hero) .reveal-up, section:not(.hero) .reveal-text');
-    revealElements.forEach(el => {
-        observer.observe(el);
-    });
+    revealElements.forEach(el => observer.observe(el));
 
     // 3. Header styling on scroll
     const header = document.querySelector('.header');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
+        header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
     // 4. Duplicate ticker content for seamless loop
     const tickerMove = document.querySelector('.ticker-move');
-    if(tickerMove) {
-        const content = tickerMove.innerHTML;
-        tickerMove.innerHTML = content + content;
+    if (tickerMove) {
+        tickerMove.innerHTML += tickerMove.innerHTML;
     }
 });
+
+/* ============================================================
+   CAROUSEL — SWIPEABLE STRIP (MULTIPLE DATASETS)
+   ============================================================ */
+
+const carruselesData = {
+    pets: [
+        { url: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80", texto: "Cachorro jugando en el parque" },
+        { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80", texto: "Gatito descansando plácidamente" },
+        { url: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=800&q=80", texto: "Perrito curioso mirando a la cámara" }
+    ],
+    diansa: [
+        { url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", texto: "Dashboard de analítica B2B" },
+        { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80", texto: "Estrategia de crecimiento" },
+        { url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", texto: "Optimización de campañas" }
+    ]
+};
+
+let fotosActivas = [];
+let indiceActual = 0;
+
+const modal      = document.getElementById("miModal");
+const captionEl  = document.getElementById("caption");
+const counterEl2 = document.getElementById("carruselCounter");
+const track      = document.getElementById("carruselTrack");
+
+/* ── Build slides inside the track ── */
+function construirCarrusel(idData) {
+    track.innerHTML = ""; // Limpiar track anterior
+    fotosActivas = carruselesData[idData] || [];
+    
+    fotosActivas.forEach((foto) => {
+        const slide = document.createElement("div");
+        slide.className = "carousel-slide";
+
+        const img = document.createElement("img");
+        img.src       = foto.url;
+        img.alt       = foto.texto;
+        img.draggable = false;
+
+        slide.appendChild(img);
+        track.appendChild(slide);
+    });
+}
+
+/* ── Position helpers ── */
+function offsetForIndex(idx) {
+    return -(idx * 100); // % units
+}
+
+function setTrackPos(pct, animated) {
+    track.style.transition = animated
+        ? "transform 0.42s cubic-bezier(0.25, 1, 0.35, 1)"
+        : "none";
+    track.style.transform = `translateX(${pct}%)`;
+}
+
+/* ── Go to a specific slide ── */
+function goToSlide(idx, animated = true) {
+    if (fotosActivas.length === 0) return;
+    
+    indiceActual = ((idx % fotosActivas.length) + fotosActivas.length) % fotosActivas.length;
+    setTrackPos(offsetForIndex(indiceActual), animated);
+    
+    // Update active class for elegant scale/opacity animations
+    Array.from(track.children).forEach((slide, i) => {
+        if (i === indiceActual) {
+            slide.classList.add("active");
+        } else {
+            slide.classList.remove("active");
+        }
+    });
+
+    updateCounter();
+    updateCaption();
+    updateDots();
+}
+
+function updateCounter() {
+    if (counterEl2) counterEl2.textContent = (indiceActual + 1) + " / " + fotosActivas.length;
+}
+
+function updateCaption() {
+    if (captionEl && fotosActivas.length > 0) {
+        captionEl.textContent = fotosActivas[indiceActual].texto;
+    }
+}
+
+function updateDots() {
+    const container = document.getElementById("puntosContainer");
+    if (!container) return;
+    container.innerHTML = "";
+    fotosActivas.forEach((_, i) => {
+        const dot = document.createElement("span");
+        dot.className = "punto" + (i === indiceActual ? " activo" : "");
+        dot.setAttribute("aria-label", "Ir a imagen " + (i + 1));
+        dot.onclick = () => goToSlide(i);
+        container.appendChild(dot);
+    });
+}
+
+/* ── Open / close modal ── */
+function abrirModal(idData) {
+    construirCarrusel(idData);
+    modal.style.display = "block";
+    goToSlide(0, false);
+}
+
+function cerrarModal() {
+    modal.style.display = "none";
+}
+
+// Bind click events to all trigger images
+document.querySelectorAll(".carrusel-trigger").forEach(img => {
+    img.addEventListener("click", () => {
+        const carouselId = img.getAttribute("data-carousel");
+        abrirModal(carouselId);
+    });
+});
+
+document.getElementsByClassName("cerrar")[0].onclick = cerrarModal;
+
+window.onclick = function (e) {
+    if (e.target === modal) cerrarModal();
+};
+
+/* ── Button navigation (called from HTML onclick) ── */
+// Needs to be globally accessible if called inline from HTML
+window.cambiarImagen = function(n) {
+    goToSlide(indiceActual + n);
+};
+
+/* ── Keyboard ── */
+document.addEventListener("keydown", (e) => {
+    if (modal.style.display !== "block") return;
+    if (e.key === "Escape")     cerrarModal();
+    if (e.key === "ArrowLeft")  goToSlide(indiceActual - 1);
+    if (e.key === "ArrowRight") goToSlide(indiceActual + 1);
+});
+
+/* ── Drag / Swipe ── */
+const SWIPE_THRESHOLD = 8;   // px to start drag intent
+const SNAP_THRESHOLD  = 18;  // % of container width to trigger slide change
+
+let isDragging   = false;
+let dragStartX   = 0;
+let dragCurrentX = 0;
+let baseOffset   = 0;
+
+function pointerStart(clientX) {
+    isDragging   = true;
+    dragStartX   = clientX;
+    dragCurrentX = clientX;
+    baseOffset   = offsetForIndex(indiceActual);
+    setTrackPos(baseOffset, false);
+    track.style.cursor = "grabbing";
+}
+
+function pointerMove(clientX) {
+    if (!isDragging) return;
+    dragCurrentX = clientX;
+
+    const containerW = track.parentElement.offsetWidth;
+    const deltaPct   = ((clientX - dragStartX) / containerW) * 100;
+    const raw        = baseOffset + deltaPct;
+    const min        = offsetForIndex(fotosActivas.length - 1);
+    const max        = 0;
+
+    // Rubber-band resistance at the edges
+    let clamped;
+    if (raw > max)       clamped = max + (raw - max) * 0.22;
+    else if (raw < min)  clamped = min + (raw - min) * 0.22;
+    else                 clamped = raw;
+
+    setTrackPos(clamped, false);
+}
+
+function pointerEnd() {
+    if (!isDragging) return;
+    isDragging = false;
+    track.style.cursor = "grab";
+
+    const containerW = track.parentElement.offsetWidth;
+    const deltaPx    = dragCurrentX - dragStartX;
+    const deltaPct   = (deltaPx / containerW) * 100;
+
+    if (Math.abs(deltaPx) > SWIPE_THRESHOLD) {
+        if      (deltaPct < -SNAP_THRESHOLD) goToSlide(indiceActual + 1);
+        else if (deltaPct >  SNAP_THRESHOLD) goToSlide(indiceActual - 1);
+        else                                  goToSlide(indiceActual);
+    } else {
+        goToSlide(indiceActual);
+    }
+}
+
+// Touch
+track.addEventListener("touchstart",  (e) => pointerStart(e.touches[0].clientX), { passive: true });
+track.addEventListener("touchmove",   (e) => pointerMove(e.touches[0].clientX),  { passive: true });
+track.addEventListener("touchend",    () => pointerEnd());
+track.addEventListener("touchcancel", () => pointerEnd());
+
+// Mouse
+track.addEventListener("mousedown", (e) => { e.preventDefault(); pointerStart(e.clientX); });
+window.addEventListener("mousemove", (e) => { if (isDragging) pointerMove(e.clientX); });
+window.addEventListener("mouseup",   () => { if (isDragging) pointerEnd(); });
