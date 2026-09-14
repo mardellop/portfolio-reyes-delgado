@@ -317,6 +317,10 @@ if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 
+window.addEventListener('load', function () {
+  window.scrollTo(0, 0);
+});
+
 // Touch
 track.addEventListener("touchstart",  (e) => pointerStart(e.touches[0].clientX), { passive: true });
 track.addEventListener("touchmove",   (e) => pointerMove(e.touches[0].clientX),  { passive: true });
