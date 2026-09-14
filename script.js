@@ -105,12 +105,44 @@ function construirCarrusel(idData) {
         const slide = document.createElement("div");
         slide.className = "carousel-slide";
 
-        const img = document.createElement("img");
-        img.src       = foto.url;
-        img.alt       = foto.texto;
-        img.draggable = false;
+        if (foto.url.toLowerCase().endsWith(".mp4")) {
+            const videoWrapper = document.createElement("div");
+            videoWrapper.className = "video-wrapper";
 
-        slide.appendChild(img);
+            const video = document.createElement("video");
+            video.src = foto.url;
+            video.loop = true;
+            video.playsInline = true;
+            video.draggable = false;
+            
+            const playBtn = document.createElement("div");
+            playBtn.className = "play-btn";
+            playBtn.innerHTML = '<i class="fas fa-play" style="margin-left: 4px;"></i>';
+
+            videoWrapper.appendChild(video);
+            videoWrapper.appendChild(playBtn);
+            
+            videoWrapper.addEventListener("click", () => {
+                if (video.paused) {
+                    video.play();
+                    playBtn.style.display = "none";
+                    video.controls = true;
+                } else {
+                    video.pause();
+                    playBtn.style.display = "flex";
+                    video.controls = false;
+                }
+            });
+
+            slide.appendChild(videoWrapper);
+        } else {
+            const img = document.createElement("img");
+            img.src       = foto.url;
+            img.alt       = foto.texto || "";
+            img.draggable = false;
+            slide.appendChild(img);
+        }
+        
         track.appendChild(slide);
     });
 }
@@ -136,10 +168,17 @@ function goToSlide(idx, animated = true) {
     
     // Update active class for elegant scale/opacity animations
     Array.from(track.children).forEach((slide, i) => {
+        const video = slide.querySelector("video");
+        const playBtn = slide.querySelector(".play-btn");
         if (i === indiceActual) {
             slide.classList.add("active");
         } else {
             slide.classList.remove("active");
+            if (video && !video.paused) {
+                video.pause();
+                video.controls = false;
+                if (playBtn) playBtn.style.display = "flex";
+            }
         }
     });
 
@@ -180,6 +219,15 @@ function abrirModal(idData) {
 
 function cerrarModal() {
     modal.style.display = "none";
+    Array.from(track.children).forEach(slide => {
+        const video = slide.querySelector("video");
+        const playBtn = slide.querySelector(".play-btn");
+        if (video && !video.paused) {
+            video.pause();
+            video.controls = false;
+            if (playBtn) playBtn.style.display = "flex";
+        }
+    });
 }
 
 // Bind click events to all trigger images
