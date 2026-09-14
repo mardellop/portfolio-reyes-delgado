@@ -1280,3 +1280,7 @@ img.carrusel-trigger:hover {
   opacity: 1;
   transform: scale(1);
 }
+
+#sobre-mi {
+  scroll-margin-top: 80px;
+}
