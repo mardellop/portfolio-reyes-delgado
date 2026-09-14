@@ -119,11 +119,16 @@
                     </div>
 
                         <!-- Petri's Pets -->
-                        <div class="work-card-std reveal-up">
-                            <div class="wc-image">
+                                            <div class="work-card-featured work-card-featured--reversed reveal-up">
+                        <div class="wc-image">
+                            <div class="wc-image-link carrusel-trigger" data-carousel="pets" style="cursor:pointer;">
                                 <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=800&q=80" alt="Petri's Pets">
+                                <div class="wc-overlay">
+                                    <span class="wc-overlay-btn">Ver posts</span>
+                                </div>
                             </div>
-                            <div class="wc-body">
+                        </div>
+                        <div class="wc-body">
                                 <p class="wc-tag">Sensibilidad estética · Social media · Copywriting estratégico</p>
                                 <h3 class="wc-title">Petri's Pets</h3>
                                 <p class="wc-desc">Petri’s Pets es una marca de accesorios de lujo para perros que combina diseño artesanal, ergonomía y materiales premium. Su comunidad, a la que llaman cariñosamente "Petriángeles", busca exclusividad, elegancia y bienestar real para sus mascotas.</p>
@@ -150,10 +155,15 @@
 
 
                         <!-- Cubiertas Diansa -->
-                        <div class="work-card-std reveal-up delay-1">
-                            <div class="wc-image">
+                        <div class="work-card-featured reveal-up delay-1">
+                        <div class="wc-image">
+                            <div class="wc-image-link carrusel-trigger" data-carousel="diansa" style="cursor:pointer;">
                                 <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="B2B Paid Media">
+                                <div class="wc-overlay">
+                                    <span class="wc-overlay-btn">Ver posts</span>
+                                </div>
                             </div>
+                        </div>
                             <div class="wc-body">
                                 <p class="wc-tag">Estrategia de contenidos orientada a la conversión</p>
                                 <h3 class="wc-title">Cubiertas Diansa</h3>
@@ -183,6 +193,22 @@
                 </div><!-- /work-grid -->
             </div>
         </section>
+
+        <!-- Modal -->
+        <div id="miModal" class="modal" role="dialog" aria-modal="true" aria-label="Galería de imágenes">
+          <span class="cerrar" aria-label="Cerrar">&times;</span>
+          <div class="carrusel-contenedor">
+            <span class="carrusel-counter" id="carruselCounter"></span>
+            <div class="carousel-viewport">
+              <div class="carousel-track" id="carruselTrack"></div>
+            </div>
+            <a class="prev" onclick="cambiarImagen(-1)" aria-label="Imagen anterior">&#10094;</a>
+            <a class="next" onclick="cambiarImagen(1)"  aria-label="Imagen siguiente">&#10095;</a>
+            <div id="caption"></div>
+            <div class="puntos-container" id="puntosContainer"></div>
+          </div>
+        </div>
+
 
         <!-- ── TICKER ─────────────────────────────────────────── -->
         <div class="ticker">
