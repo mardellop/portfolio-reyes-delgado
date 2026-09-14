@@ -72,9 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const carruselesData = {
     pets: [
-        { url: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=800&q=80", texto: "Cachorro jugando en el parque" },
-        { url: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=800&q=80", texto: "Gatito descansando plácidamente" },
-        { url: "https://images.unsplash.com/photo-1537151608828-ea2b11777ee8?auto=format&fit=crop&w=800&q=80", texto: "Perrito curioso mirando a la cámara" }
+        { url: "post-1-petris-pets.jpg" },
+        { url: "post-2-petris-pets.jpg" },
+        { url: "post-3-petris-pets.jpg" },
+        { url: "post-4-petris-pets.jpg" }
     ],
     diansa: [
         { url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", texto: "Dashboard de analítica B2B" },
