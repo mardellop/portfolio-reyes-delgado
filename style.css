@@ -300,7 +300,7 @@ h1, h2, h3, h4 {
 .hero {
     min-height: 100vh;
     padding-top: 18vh;
-    margin-bottom: 10px;
+    padding-bottom: 10vh;
     display: flex;
     align-items: center;
 }
@@ -377,6 +377,7 @@ h1, h2, h3, h4 {
 /* ============================================================
    SECTIONS — GLOBAL
    ============================================================ */
+section { padding: 50px 0; }
 
 .section-label {
     display: inline-flex;
@@ -413,7 +414,7 @@ h1, h2, h3, h4 {
 /* ============================================================
    CASES / WORK
    ============================================================ */
-.work { background: var(--c-bg); margin-bottom: 50px}
+.work { background: var(--c-bg); }
 
 .work-header {
     display: flex;
@@ -556,7 +557,7 @@ h1, h2, h3, h4 {
 /* ============================================================
    ABOUT
    ============================================================ */
-.about { background: var(--c-bg); margin-top: 50px; margin-bottom: 50px}
+.about { background: var(--c-bg); }
 
 .about-inner {
     display: grid;
