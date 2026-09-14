@@ -105,27 +105,16 @@ function construirCarrusel(idData) {
         const slide = document.createElement("div");
         slide.className = "carousel-slide";
 
-        const esVideo = foto.url.endsWith('.mp4') || foto.url.endsWith('.webm');
-        let elemento;
+        const img = document.createElement("img");
+        img.src       = foto.url;
+        img.alt       = foto.texto;
+        img.draggable = false;
 
-        if (esVideo) {
-            elemento = document.createElement("video");
-            elemento.src = foto.url;
-            elemento.controls = true;     // Muestra controles de reproducción
-            elemento.muted = true;        // Silenciado por defecto (evita bloqueos del navegador)
-            elemento.playsInline = true;  // Vital para dispositivos móviles
-            elemento.preload = "metadata";
-        } else {
-            elemento = document.createElement("img");
-            elemento.src = foto.url;
-            elemento.alt = foto.texto || "Imagen del carrusel";
-            elemento.draggable = false;
-        }
-
-        slide.appendChild(elemento);
+        slide.appendChild(img);
         track.appendChild(slide);
     });
 }
+
 /* ── Position helpers ── */
 function offsetForIndex(idx) {
     return -(idx * 100); // % units
@@ -145,21 +134,12 @@ function goToSlide(idx, animated = true) {
     indiceActual = ((idx % fotosActivas.length) + fotosActivas.length) % fotosActivas.length;
     setTrackPos(offsetForIndex(indiceActual), animated);
     
-    // Update active class & manage videos playback
+    // Update active class for elegant scale/opacity animations
     Array.from(track.children).forEach((slide, i) => {
-        const videoEl = slide.querySelector('video');
-
         if (i === indiceActual) {
             slide.classList.add("active");
-            // Opcional: Reproducir automáticamente el video activo si lo deseas
-            // if (videoEl) videoEl.play().catch(() => {});
         } else {
             slide.classList.remove("active");
-            // Pausar y reiniciar el video si deja de estar visible
-            if (videoEl) {
-                videoEl.pause();
-                videoEl.currentTime = 0;
-            }
         }
     });
 
@@ -167,6 +147,30 @@ function goToSlide(idx, animated = true) {
     updateCaption();
     updateDots();
 }
+
+function updateCounter() {
+    if (counterEl2) counterEl2.textContent = (indiceActual + 1) + " / " + fotosActivas.length;
+}
+
+function updateCaption() {
+    if (captionEl && fotosActivas.length > 0) {
+        captionEl.textContent = fotosActivas[indiceActual].texto;
+    }
+}
+
+function updateDots() {
+    const container = document.getElementById("puntosContainer");
+    if (!container) return;
+    container.innerHTML = "";
+    fotosActivas.forEach((_, i) => {
+        const dot = document.createElement("span");
+        dot.className = "punto" + (i === indiceActual ? " activo" : "");
+        dot.setAttribute("aria-label", "Ir a imagen " + (i + 1));
+        dot.onclick = () => goToSlide(i);
+        container.appendChild(dot);
+    });
+}
+
 /* ── Open / close modal ── */
 function abrirModal(idData) {
     construirCarrusel(idData);
