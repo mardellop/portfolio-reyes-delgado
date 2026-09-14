@@ -618,12 +618,12 @@ h1, h2, h3, h4 {
 }
 
 .skill-item:hover {
-    background: var(--c-blue);
-    border-color: var(--c-blue);
-    color: #fff;
+    background: #D9D9D9;
+    border-color: #D9D9D9;
+    color: #000;
 }
 
-.skill-item:hover i { color: #fff; }
+.skill-item:hover i { color: #000; }
 
 /* ============================================================
    TICKER
