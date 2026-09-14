@@ -80,9 +80,11 @@ const carruselesData = {
         { url: "post-4-petris-pets.jpg" }
     ],
     diansa: [
-        { url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", texto: "Dashboard de analítica B2B" },
-        { url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80", texto: "Estrategia de crecimiento" },
-        { url: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80", texto: "Optimización de campañas" }
+        { url: "post-1-cubiertas-diansa.png" },
+        { url: "post-2-cubiertas-diansa.png" },
+        { url: "reels-1-cubiertas-diansa.mp4" },
+        { url: "post-3-cubiertas-diansa.png" },
+        { url: "reels-2-cubiertas-diansa.mp4" }
     ]
 };
 
