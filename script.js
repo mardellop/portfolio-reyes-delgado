@@ -73,9 +73,3 @@ document.addEventListener('DOMContentLoaded', () => {
         tickerMove.innerHTML = content + content;
     }
 });
-const toggle = document.querySelector('.nav-toggle');
-const navList = document.querySelector('.nav-list');
-
-toggle.addEventListener('click', () => {
-    navList.classList.toggle('active');
-});
