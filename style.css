@@ -594,6 +594,12 @@ border-top: 1px solid var(--c-border);
 
 .wc-meta-item {}
 
+.wc-meta-item {}
+.wc-meta-item--full,
+.wc-meta-item:nth-child(3):last-child {
+    grid-column: 1 / -1;
+}
+
 .wc-meta-label {
 font-size: 0.7rem;
 font-weight: 600;
