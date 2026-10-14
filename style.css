@@ -886,7 +886,8 @@ h1, h2, h3, h4 {
 
     .contact-wrapper { padding: 40px 28px; }
     .hero-stats { gap: 2rem; flex-wrap: wrap; }
-    .wc-meta { grid-template-columns: 1fr; }
+    .wc-meta {display: grid;
+  grid-template-columns: 1fr; }
 }
 
 /* LinkedIn Custom Card */
