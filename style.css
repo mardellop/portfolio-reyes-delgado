@@ -584,16 +584,11 @@ h1, h2, h3, h4 {
     text-align: justify;
 }
 
-.wc-meta {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--c-border);
-}
-
 .wc-meta-item {}
-
+.wc-meta-item--full,
+.wc-meta-item:nth-child(3):last-child {
+    grid-column: 1 / -1;
+}
 .wc-meta-label {
     font-size: 0.7rem;
     font-weight: 600;
@@ -602,12 +597,21 @@ h1, h2, h3, h4 {
     color: var(--c-muted);
     margin-bottom: 0.35rem;
 }
-
 .wc-meta-value {
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--c-ink);
     text-align: justify;
+    line-height: 1.5;
+}
+.wc-meta-value p {
+    margin-bottom: 0.35rem;
+}
+.wc-meta-value p:last-child {
+    margin-bottom: 0;
+}
+.wc-meta-item--full .wc-meta-value {
+    text-align: left;
 }
 
 .wc-meta-value.accent { color: #000; }
